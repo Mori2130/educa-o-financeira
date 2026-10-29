@@ -1,901 +1,300 @@
 <!doctype html>
 <html lang="pt-BR">
-
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <title>Educação financeira</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=IBM+Plex+Sans:wght@400;600&display=swap">
-    <style>
-         :root {
-            --paper: #0A0A0B;
-            --card: #141415;
-            --ink: #F4ECD8;
-            --muted: #A99F88;
-            --blue: #D4AF37;
-            --amber: #F3DC8F;
-            --coral: #B87333;
-            --green: #8A9A4B;
-            --line: #2B281F;
-            --onblue: #0A0A0B;
-            color-scheme: dark;
-            box-sizing: border-box;
-            padding-top: env(safe-area-inset-top, 0px);
-            padding-bottom: env(safe-area-inset-bottom, 0px)
-        }
-        
-        @media (prefers-color-scheme:dark) {
-             :root:not([data-theme="light"]) {
-                color-scheme: dark
-            }
-        }
-        
-         :root[data-theme="dark"] {
-            color-scheme: dark
-        }
-        
-        html {
-            scroll-padding-top: env(safe-area-inset-top, 0px)
-        }
-        
-        html,
-        body {
-            height: 100%
-        }
-        
-        html {
-            -webkit-text-size-adjust: 100%
-        }
-        
-        @supports (height:100dvh) {
-            html {
-                height: 100dvh
-            }
-        }
-        
-        body {
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            background: var(--paper);
-            color: var(--ink);
-            font: 400 1.1rem/1.55 "IBM Plex Sans", system-ui, sans-serif
-        }
-        
-        h1,
-        h2 {
-            font-family: "Bricolage Grotesque", "IBM Plex Sans", system-ui, sans-serif;
-            line-height: 1.05;
-            margin: 0 0 .6em;
-            letter-spacing: -.02em;
-            color: var(--blue)
-        }
-        
-        h1 {
-            font-size: clamp(2.6rem, 9vw, 6rem);
-            font-weight: 800
-        }
-        
-        h2 {
-            font-size: clamp(1.9rem, 5vw, 3.4rem);
-            font-weight: 800
-        }
-        
-        p {
-            margin: 0 0 1rem;
-            max-width: 62ch
-        }
-        
-        .top {
-            display: flex;
-            justify-content: space-between;
-            padding: .8rem clamp(1.2rem, 4vw, 3.5rem);
-            font-size: .95rem;
-            color: var(--muted)
-        }
-        
-        .bar {
-            height: 5px;
-            background: var(--line)
-        }
-        
-        .bar i {
-            display: block;
-            height: 100%;
-            width: 0;
-            background: var(--blue)
-        }
-        
-        main {
-            flex: 1;
-            overflow: auto;
-            padding: clamp(1.2rem, 4vw, 3.5rem)
-        }
-        
-        .slide {
-            display: none;
-            max-width: 1000px;
-            margin: 0 auto
-        }
-        
-        .slide.on {
-            display: block
-        }
-        
-        .lead {
-            font-size: 1.35rem;
-            color: var(--muted)
-        }
-        
-        .ask {
-            margin-top: 2rem;
-            padding: 1.2rem 1.5rem;
-            background: var(--blue);
-            color: var(--onblue);
-            border-radius: 14px;
-            font: 800 clamp(1.3rem, 3.5vw, 2rem)/1.2 "Bricolage Grotesque", system-ui, sans-serif;
-            max-width: 30ch
-        }
-        
-        .by {
-            margin-top: 1.5rem;
-            color: var(--muted)
-        }
-        
-        .pt {
-            border-left: 8px solid var(--c);
-            padding: .2rem 0 .2rem 1.1rem;
-            margin: 0 0 1.2rem;
-            max-width: 62ch
-        }
-        
-        .pt strong {
-            display: block;
-            font: 800 1.4rem "Bricolage Grotesque", system-ui, sans-serif
-        }
-        
-        .w {
-            display: grid;
-            gap: 1rem;
-            margin-top: 1.5rem;
-            max-width: 760px
-        }
-        
-        .f {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem
-        }
-        
-        .f label {
-            display: grid;
-            gap: .3rem;
-            font-weight: 600;
-            font-size: .95rem
-        }
-        
-        input[type=number] {
-            padding: .6rem .8rem;
-            border: 2px solid var(--line);
-            border-radius: 8px;
-            background: var(--card);
-            color: var(--ink);
-            font: inherit;
-            width: 9rem
-        }
-        
-        input[type=range] {
-            accent-color: var(--blue);
-            width: 100%
-        }
-        
-        .row {
-            display: grid;
-            grid-template-columns: 11rem 1fr 7.5rem;
-            gap: .8rem;
-            align-items: center
-        }
-        
-        .track {
-            height: 16px;
-            background: var(--line);
-            border-radius: 8px;
-            overflow: hidden
-        }
-        
-        .track i {
-            display: block;
-            height: 100%
-        }
-        
-        .row strong {
-            text-align: right
-        }
-        
-        .warn {
-            color: var(--coral);
-            font-weight: 600;
-            margin: 0
-        }
-        
-        .big {
-            font: 800 clamp(1.6rem, 4vw, 2.4rem)/1.15 "Bricolage Grotesque", system-ui, sans-serif;
-            margin: 0
-        }
-        
-        .res {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1.5rem 2.5rem
-        }
-        
-        .res span {
-            display: block;
-            font-size: .9rem;
-            color: var(--muted)
-        }
-        
-        .chart {
-            display: flex;
-            align-items: flex-end;
-            gap: 3px;
-            height: 190px;
-            border-bottom: 2px solid var(--ink)
-        }
-        
-        .chart div {
-            flex: 1;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            min-width: 0
-        }
-        
-        .chart b {
-            display: block;
-            background: var(--blue)
-        }
-        
-        .chart em {
-            display: block;
-            background: var(--amber)
-        }
-        
-        .leg {
-            font-size: .9rem;
-            color: var(--muted);
-            margin: 0
-        }
-        
-        .leg u {
-            text-decoration: none;
-            display: inline-block;
-            width: .8em;
-            height: .8em;
-            margin-right: .3em;
-            border-radius: 2px
-        }
-        
-        .q {
-            font: 800 1.6rem/1.2 "Bricolage Grotesque", system-ui, sans-serif;
-            margin: 0 0 1rem
-        }
-        
-        .opts {
-            display: grid;
-            gap: .6rem
-        }
-        
-        .opt,
-        .btn {
-            font: inherit;
-            font-weight: 600;
-            padding: .75rem 1rem;
-            border-radius: 10px;
-            border: 2px solid var(--blue);
-            background: var(--card);
-            color: var(--ink);
-            cursor: pointer;
-            text-align: left
-        }
-        
-        .btn {
-            background: var(--blue);
-            color: var(--onblue);
-            text-align: center
-        }
-        
-        .opt:disabled {
-            cursor: default
-        }
-        
-        .opt.ok {
-            background: var(--green);
-            border-color: var(--green);
-            color: var(--onblue)
-        }
-        
-        .opt.no {
-            background: var(--coral);
-            border-color: var(--coral);
-            color: var(--onblue)
-        }
-        
-        .fb {
-            margin-top: 1rem
-        }
-        
-        .ctrl {
-            display: flex;
-            justify-content: space-between;
-            gap: .6rem;
-            padding: .8rem clamp(1.2rem, 4vw, 3.5rem)
-        }
-        
-        .ctrl .btn {
-            padding: .6rem 1.2rem
-        }
-        
-         :focus-visible {
-            outline: 3px solid var(--blue);
-            outline-offset: 2px
-        }
-        
-        .cols {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem
-        }
-        
-        .cols .row {
-            grid-template-columns: 6.5rem 1fr 4rem;
-            font-size: .95rem
-        }
-        
-        .cols .row strong {
-            grid-column: auto;
-            text-align: right
-        }
-        
-        .sm {
-            font-size: 1.2rem;
-            margin-bottom: .6rem
-        }
-        
-        .src {
-            font-size: .8rem;
-            color: var(--muted);
-            margin: .6rem 0 0
-        }
-        
-        .coins {
-            display: flex;
-            flex-wrap: wrap;
-            gap: .5rem;
-            margin: .5rem 0
-        }
-        
-        .coins i {
-            width: 2.2rem;
-            height: 2.2rem;
-            border-radius: 50%;
-            border: 2px solid var(--blue)
-        }
-        
-        .coins i.on {
-            background: var(--blue)
-        }
-        
-        input[type=number] {
-            box-sizing: border-box
-        }
-        
-        .cols>div {
-            min-width: 0
-        }
-        
-        main {
-            overflow-x: hidden
-        }
-        
-        @media (max-width:800px) {
-            .cols {
-                grid-template-columns: 1fr
-            }
-        }
-        
-        @media (max-width:600px) {
-            body {
-                font-size: 1rem
-            }
-            main {
-                padding: 1rem
-            }
-            .top {
-                padding: .6rem 1rem;
-                font-size: .85rem
-            }
-            .ctrl {
-                padding: .6rem 1rem;
-                gap: .5rem
-            }
-            .ctrl .btn {
-                flex: 1;
-                padding: .85rem .4rem;
-                text-align: center
-            }
-            #full {
-                display: none
-            }
-            .lead {
-                font-size: 1.15rem
-            }
-            .ask {
-                max-width: none
-            }
-            .chart {
-                height: 150px;
-                gap: 2px
-            }
-            .w,
-            .f {
-                gap: .8rem
-            }
-            .f label {
-                flex: 1 1 8rem
-            }
-            input[type=number] {
-                width: 100%
-            }
-            .res {
-                gap: 1rem 1.5rem
-            }
-            .coins i {
-                width: 1.7rem;
-                height: 1.7rem
-            }
-        }
-        
-        @media (max-height:480px) {
-            .top {
-                display: none
-            }
-            .ctrl {
-                padding: .4rem 1rem
-            }
-        }
-        
-        @media (max-width:600px) {
-            .row {
-                grid-template-columns: 7rem 1fr;
-            }
-            .row strong {
-                grid-column: 1/-1;
-                text-align: left
-            }
-        }
-        
-        #painel {
-            display: none;
-            flex: 1;
-            overflow: auto;
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: clamp(1rem, 4vw, 3rem)
-        }
-        
-        .pv #painel {
-            display: block
-        }
-        
-        .pv .top,
-        .pv .bar,
-        .pv main,
-        .pv .ctrl {
-            display: none
-        }
-        
-        .ptop {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            justify-content: space-between;
-            align-items: center
-        }
-        
-        .pq {
-            font: 800 1.15rem "Bricolage Grotesque", system-ui, sans-serif;
-            margin: 1.8rem 0 .4rem
-        }
-        
-        #painel pre {
-            white-space: pre-wrap;
-            background: var(--card);
-            border: 1px solid var(--line);
-            border-radius: 10px;
-            padding: 1rem;
-            font: inherit
-        }
-        
-        #oculto {
-            position: fixed;
-            top: env(safe-area-inset-top, 0px);
-            left: 0;
-            width: 34px;
-            height: 34px;
-            opacity: .04;
-            z-index: 20;
-            background: var(--blue);
-            border-radius: 0 0 8px 0
-        }
-        
-        #oculto:hover {
-            opacity: .6
-        }
-        
-        .pv #oculto {
-            display: none
-        }
-        
-        input[type=password] {
-            padding: .6rem .8rem;
-            border: 2px solid var(--line);
-            border-radius: 8px;
-            background: var(--card);
-            color: var(--ink);
-            font: inherit;
-            width: min(100%, 18rem);
-            box-sizing: border-box
-        }
-        
-        .real {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin: 1.5rem 0
-        }
-        
-        .real>div {
-            border-left: 6px solid var(--blue);
-            padding-left: .9rem
-        }
-        
-        .real b {
-            display: block;
-            font: 800 1.8rem "Bricolage Grotesque", system-ui, sans-serif;
-            color: var(--blue)
-        }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Educação financeira</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=IBM+Plex+Sans:wght@400;600&display=swap">
+<style>
+:root{--paper:#0A0A0B;--card:#141415;--ink:#F4ECD8;--muted:#A99F88;--blue:#D4AF37;--amber:#F3DC8F;--coral:#B87333;--green:#8A9A4B;--line:#2B281F;--onblue:#0A0A0B;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark}}
+:root[data-theme="dark"]{color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+html,body{height:100%}
+html{-webkit-text-size-adjust:100%}
+@supports (height:100dvh){html{height:100dvh}}
+body{margin:0;display:flex;flex-direction:column;background:var(--paper);color:var(--ink);font:400 1.1rem/1.55 "IBM Plex Sans",system-ui,sans-serif}
+h1,h2{font-family:"Bricolage Grotesque","IBM Plex Sans",system-ui,sans-serif;line-height:1.05;margin:0 0 .6em;letter-spacing:-.02em;color:var(--blue)}
+h1{font-size:clamp(2.6rem,9vw,6rem);font-weight:800}
+h2{font-size:clamp(1.9rem,5vw,3.4rem);font-weight:800}
+p{margin:0 0 1rem;max-width:62ch}
+.top{display:flex;justify-content:space-between;padding:.8rem clamp(1.2rem,4vw,3.5rem);font-size:.95rem;color:var(--muted)}
+.bar{height:5px;background:var(--line)}.bar i{display:block;height:100%;width:0;background:var(--blue)}
+main{flex:1;overflow:auto;padding:clamp(1.2rem,4vw,3.5rem)}
+.slide{display:none;max-width:1000px;margin:0 auto}.slide.on{display:block}
+.lead{font-size:1.35rem;color:var(--muted)}
+.ask{margin-top:2rem;padding:1.2rem 1.5rem;background:var(--blue);color:var(--onblue);border-radius:14px;font:800 clamp(1.3rem,3.5vw,2rem)/1.2 "Bricolage Grotesque",system-ui,sans-serif;max-width:30ch}
+.by{margin-top:1.5rem;color:var(--muted)}
+.pt{border-left:8px solid var(--c);padding:.2rem 0 .2rem 1.1rem;margin:0 0 1.2rem;max-width:62ch}
+.pt strong{display:block;font:800 1.4rem "Bricolage Grotesque",system-ui,sans-serif}
+.w{display:grid;gap:1rem;margin-top:1.5rem;max-width:760px}
+.f{display:flex;flex-wrap:wrap;gap:1rem}.f label{display:grid;gap:.3rem;font-weight:600;font-size:.95rem}
+input[type=number]{padding:.6rem .8rem;border:2px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);font:inherit;width:9rem}
+input[type=range]{accent-color:var(--blue);width:100%}
+.row{display:grid;grid-template-columns:11rem 1fr 7.5rem;gap:.8rem;align-items:center}
+.track{height:16px;background:var(--line);border-radius:8px;overflow:hidden}.track i{display:block;height:100%}
+.row strong{text-align:right}
+.warn{color:var(--coral);font-weight:600;margin:0}
+.big{font:800 clamp(1.6rem,4vw,2.4rem)/1.15 "Bricolage Grotesque",system-ui,sans-serif;margin:0}
+.res{display:flex;flex-wrap:wrap;gap:1.5rem 2.5rem}.res span{display:block;font-size:.9rem;color:var(--muted)}
+.chart{display:flex;align-items:flex-end;gap:3px;height:190px;border-bottom:2px solid var(--ink)}
+.chart div{flex:1;height:100%;display:flex;flex-direction:column;justify-content:flex-end;min-width:0}
+.chart b{display:block;background:var(--blue)}.chart em{display:block;background:var(--amber)}
+.leg{font-size:.9rem;color:var(--muted);margin:0}
+.leg u{text-decoration:none;display:inline-block;width:.8em;height:.8em;margin-right:.3em;border-radius:2px}
+.q{font:800 1.6rem/1.2 "Bricolage Grotesque",system-ui,sans-serif;margin:0 0 1rem}
+.opts{display:grid;gap:.6rem}
+.opt,.btn{font:inherit;font-weight:600;padding:.75rem 1rem;border-radius:10px;border:2px solid var(--blue);background:var(--card);color:var(--ink);cursor:pointer;text-align:left}
+.btn{background:var(--blue);color:var(--onblue);text-align:center}
+.opt:disabled{cursor:default}.opt.ok{background:var(--green);border-color:var(--green);color:var(--onblue)}.opt.no{background:var(--coral);border-color:var(--coral);color:var(--onblue)}
+.fb{margin-top:1rem}
+.ctrl{display:flex;justify-content:space-between;gap:.6rem;padding:.8rem clamp(1.2rem,4vw,3.5rem)}
+.ctrl .btn{padding:.6rem 1.2rem}
+:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+.cols .row{grid-template-columns:6.5rem 1fr 4rem;font-size:.95rem}
+.cols .row strong{grid-column:auto;text-align:right}
+.sm{font-size:1.2rem;margin-bottom:.6rem}
+.src{font-size:.8rem;color:var(--muted);margin:.6rem 0 0}
+.coins{display:flex;flex-wrap:wrap;gap:.5rem;margin:.5rem 0}
+.coins i{width:2.2rem;height:2.2rem;border-radius:50%;border:2px solid var(--blue)}
+.coins i.on{background:var(--blue)}
+input[type=number]{box-sizing:border-box}
+.cols>div{min-width:0}
+main{overflow-x:hidden}
+@media (max-width:800px){.cols{grid-template-columns:1fr}}
+@media (max-width:600px){
+body{font-size:1rem}
+main{padding:1rem}
+.top{padding:.6rem 1rem;font-size:.85rem}
+.ctrl{padding:.6rem 1rem;gap:.5rem}
+.ctrl .btn{flex:1;padding:.85rem .4rem;text-align:center}
+#full{display:none}
+.lead{font-size:1.15rem}
+.ask{max-width:none}
+.chart{height:150px;gap:2px}
+.w,.f{gap:.8rem}
+.f label{flex:1 1 8rem}
+input[type=number]{width:100%}
+.res{gap:1rem 1.5rem}
+.coins i{width:1.7rem;height:1.7rem}
+}
+@media (max-height:480px){.top{display:none}.ctrl{padding:.4rem 1rem}}
+@media (max-width:600px){.row{grid-template-columns:7rem 1fr;}.row strong{grid-column:1/-1;text-align:left}}
+#painel{display:none;flex:1;overflow:auto;width:100%;max-width:900px;margin:0 auto;padding:clamp(1rem,4vw,3rem)}
+.pv #painel{display:block}
+.pv .top,.pv .bar,.pv main,.pv .ctrl{display:none}
+.ptop{display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;align-items:center}
+.pq{font:800 1.15rem "Bricolage Grotesque",system-ui,sans-serif;margin:1.8rem 0 .4rem}
+#painel pre{white-space:pre-wrap;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:1rem;font:inherit}
+#oculto{position:fixed;top:env(safe-area-inset-top,0px);left:0;width:34px;height:34px;opacity:.04;z-index:20;background:var(--blue);border-radius:0 0 8px 0}
+#oculto:hover{opacity:.6}
+.pv #oculto{display:none}
+input[type=password]{padding:.6rem .8rem;border:2px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);font:inherit;width:min(100%,18rem);box-sizing:border-box}
+.real{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin:1.5rem 0}
+.real>div{border-left:6px solid var(--blue);padding-left:.9rem}
+.real b{display:block;font:800 1.8rem "Bricolage Grotesque",system-ui,sans-serif;color:var(--blue)}
+</style>
 </head>
-
 <body>
-    <div class="top"><span>Educação financeira</span><span id="count"></span></div>
-    <div class="bar"><i id="fill"></i></div>
-    <main id="main">
+<div class="top"><span>Educação financeira</span><span id="count"></span></div>
+<div class="bar"><i id="fill"></i></div>
+<main id="main">
 
-        <section class="slide">
-            <h1>Educação financeira</h1>
-            <p class="lead">Aprender a decidir o que fazer com o dinheiro que entra.</p>
-            <div class="ask">Se você recebesse R$ 1.000 hoje, o que faria?</div>
-            <p class="by" contenteditable="true" spellcheck="false">Arthur, João Paulo e Rafaell · 3º ano</p>
-        </section>
+<section class="slide">
+  <h1>Educação financeira</h1>
+  <p class="lead">Aprender a decidir o que fazer com o dinheiro que entra.</p>
+  <div class="ask">Se você recebesse R$ 1.000 hoje, o que faria?</div>
+  <p class="by" contenteditable="true" spellcheck="false">Arthur, João Paulo e Rafaell · 3º ano</p>
+</section>
 
-        <section class="slide">
-            <h2>O que é educação financeira</h2>
-            <p class="lead">Saber ganhar, gastar, guardar e proteger o dinheiro para chegar aos seus objetivos.</p>
-            <div class="pt" style="--c:var(--blue)"><strong>Gastar com consciência</strong>Separar o que é necessário do que é vontade.</div>
-            <div class="pt" style="--c:var(--amber)"><strong>Guardar com objetivo</strong>Poupar para algo concreto: um curso, uma viagem, uma emergência.</div>
-            <div class="pt" style="--c:var(--coral)"><strong>Evitar dívidas caras</strong>Entender os juros antes de parcelar ou usar o cartão.</div>
-        </section>
+<section class="slide">
+  <h2>O que é educação financeira</h2>
+  <p class="lead">Saber ganhar, gastar, guardar e proteger o dinheiro para chegar aos seus objetivos.</p>
+  <div class="pt" style="--c:var(--blue)"><strong>Gastar com consciência</strong>Separar o que é necessário do que é vontade.</div>
+  <div class="pt" style="--c:var(--amber)"><strong>Guardar com objetivo</strong>Poupar para algo concreto: um curso, uma viagem, uma emergência.</div>
+  <div class="pt" style="--c:var(--coral)"><strong>Evitar dívidas caras</strong>Entender os juros antes de parcelar ou usar o cartão.</div>
+</section>
 
-        <section class="slide">
-            <h2>O Brasil em números</h2>
-            <p>A economia cresceu nos últimos cinco anos, mas quem tem de 14 a 24 anos ainda sente mais o desemprego.</p>
-            <div class="cols">
-                <div>
-                    <p class="big sm">Crescimento do PIB por ano</p>
-                    <div id="gpib" class="w" style="margin:0"></div>
-                    <p class="src">Fonte: IBGE, Contas Nacionais (divulgação de 3/mar/2026).</p>
-                </div>
-                <div>
-                    <p class="big sm">Desemprego por faixa etária</p>
-                    <div id="gdes" class="w" style="margin:0"></div>
-                    <p class="src">Fonte: IBGE, PNAD Contínua, 3º trimestre de 2025.</p>
-                </div>
-            </div>
-        </section>
+<section class="slide">
+  <h2>O Brasil em números</h2>
+  <p>A economia cresceu nos últimos cinco anos, mas quem tem de 14 a 24 anos ainda sente mais o desemprego.</p>
+  <div class="cols">
+    <div><p class="big sm">Crescimento do PIB por ano</p><div id="gpib" class="w" style="margin:0"></div><p class="src">Fonte: IBGE, Contas Nacionais (divulgação de 3/mar/2026).</p></div>
+    <div><p class="big sm">Desemprego por faixa etária</p><div id="gdes" class="w" style="margin:0"></div><p class="src">Fonte: IBGE, PNAD Contínua, 3º trimestre de 2025.</p></div>
+  </div>
+</section>
 
-        <section class="slide">
-            <h2>Metas e reserva</h2>
-            <div class="cols">
-                <div>
-                    <p class="big sm">Comece por uma meta</p>
-                    <p>O que você quer, quanto custa e em quanto tempo. A conta não considera rendimento.</p>
-                    <div class="w" style="margin:0">
-                        <div class="f">
-                            <label>Quanto custa (R$)<input id="mv" type="number" min="0" value="3000"></label>
-                            <label>Em quantos meses<input id="mm" type="number" min="1" value="12"></label>
-                        </div>
-                        <div class="res">
-                            <div class="big"><span>Guardar por mês</span><b id="mp"></b></div>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <p class="big sm">Reserva de emergência</p>
-                    <p>Dinheiro para imprevistos. O mais comum é guardar de 3 a 6 meses das suas despesas.</p>
-                    <div class="w" style="margin:0">
-                        <div class="f"><label>Gasto mensal (R$)<input id="gasto" type="number" min="0" value="1500"></label></div>
-                        <div class="res">
-                            <div class="big"><span>3 meses</span><b id="r3"></b></div>
-                            <div class="big"><span>6 meses</span><b id="r6"></b></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="slide">
-            <h2>Regra 50/30/20</h2>
-            <p>Um jeito simples de dividir a renda. Mude os valores e veja o resultado.</p>
-            <div class="w">
-                <div class="f">
-                    <label>Renda mensal (R$)<input id="renda" type="number" min="0" value="2000"></label>
-                </div>
-                <label>Necessidades: <b id="vn"></b><input id="pn" type="range" min="0" max="100" value="50"></label>
-                <label>Desejos: <b id="vd"></b><input id="pd" type="range" min="0" max="100" value="30"></label>
-                <div id="bud" class="w" style="margin:0"></div>
-                <p id="bnote" class="warn"></p>
-            </div>
-        </section>
-
-        <section class="slide">
-            <h2>Juros compostos</h2>
-            <p>Juros sobre juros: com o tempo, o rendimento passa a render também. A taxa abaixo é só um exemplo, não uma promessa.</p>
-            <div class="w">
-                <div class="f">
-                    <label>Guardo por mês (R$)<input id="aporte" type="number" min="0" value="200"></label>
-                    <label>Taxa ao mês (%)<input id="taxa" type="number" min="0" step="0.1" value="1"></label>
-                </div>
-                <label>Tempo: <b id="vanos"></b><input id="anos" type="range" min="1" max="30" value="10"></label>
-                <div class="res">
-                    <div class="big"><span>Total guardado</span><b id="jt"></b></div>
-                    <div class="big"><span>Você depositou</span><b id="jd"></b></div>
-                    <div class="big"><span>Juros</span><b id="jj"></b></div>
-                </div>
-                <div id="chart" class="chart" role="img" aria-label="Evolução do dinheiro guardado ano a ano"></div>
-                <p class="leg"><u style="background:var(--blue)"></u>Depositado <u style="background:var(--amber);margin-left:1rem"></u>Juros</p>
-            </div>
-        </section>
-
-        <section class="slide">
-            <h2>Quando a dívida cresce</h2>
-            <p class="big sm">81,7% das famílias brasileiras têm dívidas</p>
-            <div class="coins" role="img" aria-label="Cerca de 8 em cada 10 famílias brasileiras têm dívidas"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i style="background:linear-gradient(90deg,var(--blue) 17%,transparent 17%)"></i><i></i></div>
-            <p class="src">Fonte: CNC (Peic): 81,7% em set/2026; cartão de crédito em mais de 85% das famílias endividadas (jul/2026).</p>
-            <p>Se você não paga, os juros passam a incidir sobre o que já está devendo. A taxa abaixo é só um exemplo.</p>
-            <div class="w">
-                <div class="f">
-                    <label>Valor da dívida (R$)<input id="dv" type="number" min="0" value="1000"></label>
-                    <label>Juros ao mês (%)<input id="dt" type="number" min="0" step="0.5" value="8"></label>
-                </div>
-                <div class="res">
-                    <div class="big"><span>Em 3 meses</span><b id="d3"></b></div>
-                    <div class="big"><span>Em 6 meses</span><b id="d6"></b></div>
-                    <div class="big"><span>Em 12 meses</span><b id="d12"></b></div>
-                </div>
-                <div class="pt" style="--c:var(--coral)">Compare o valor total, não só a parcela.</div>
-            </div>
-        </section>
-
-        <section class="slide">
-            <h2>Pesquisa rápida</h2>
-            <p>Responda sem se identificar. As respostas ajudam o grupo a entender por que os jovens se endividam.</p>
-            <div id="quiz" class="w"></div>
-        </section>
-
-        <section class="slide">
-            <h2>O que levar daqui</h2>
-            <div class="pt" style="--c:var(--blue)">Anote o que entra e o que sai por um mês.</div>
-            <div class="pt" style="--c:var(--amber)">Defina uma meta e um valor mensal para ela.</div>
-            <div class="pt" style="--c:var(--coral)">Antes de parcelar, pergunte quanto vai pagar no total.</div>
-            <p class="big" style="margin-top:2rem">Perguntas?</p>
-        </section>
-
-    </main>
-    <div class="ctrl">
-        <button class="btn" id="prev">Anterior</button>
-        <button class="btn" id="full">Tela cheia</button>
-        <button class="btn" id="next">Próximo</button>
+<section class="slide">
+  <h2>Metas e reserva</h2>
+  <div class="cols">
+    <div>
+      <p class="big sm">Comece por uma meta</p>
+      <p>O que você quer, quanto custa e em quanto tempo. A conta não considera rendimento.</p>
+      <div class="w" style="margin:0">
+        <div class="f">
+          <label>Quanto custa (R$)<input id="mv" type="number" min="0" value="3000"></label>
+          <label>Em quantos meses<input id="mm" type="number" min="1" value="12"></label>
+        </div>
+        <div class="res"><div class="big"><span>Guardar por mês</span><b id="mp"></b></div></div>
+      </div>
     </div>
-    <a id="oculto" href="#adm" tabindex="-1" aria-hidden="true"></a>
-    <section id="painel">
-        <div id="login">
-            <h2>Área do grupo</h2>
-            <p class="src">Digite a senha para ver as respostas.</p>
-            <div class="f"><label>Senha<input id="pw" type="password" autocomplete="current-password"></label></div>
-            <p><button class="btn" id="entrar">Entrar</button> <a class="btn" href="#slides" style="display:inline-block;text-decoration:none;margin-left:.5rem">Voltar</a></p>
-            <p class="warn" id="lerr"></p>
+    <div>
+      <p class="big sm">Reserva de emergência</p>
+      <p>Dinheiro para imprevistos. O mais comum é guardar de 3 a 6 meses das suas despesas.</p>
+      <div class="w" style="margin:0">
+        <div class="f"><label>Gasto mensal (R$)<input id="gasto" type="number" min="0" value="1500"></label></div>
+        <div class="res">
+          <div class="big"><span>3 meses</span><b id="r3"></b></div>
+          <div class="big"><span>6 meses</span><b id="r6"></b></div>
         </div>
-        <div id="dash" hidden>
-            <div class="ptop">
-                <div>
-                    <h2>Pesquisa × realidade</h2>
-                    <p class="src" style="margin:0">Por que os jovens se endividam? Respostas anônimas da turma.</p>
-                </div>
-                <div class="res">
-                    <div class="big"><span>respostas</span><b id="ptot">0</b></div>
-                </div>
-            </div>
-            <div class="real">
-                <div><b>81,7%</b>das famílias brasileiras têm dívidas
-                    <p class="src">CNC (Peic), set/2026</p>
-                </div>
-                <div><b>+85%</b>das famílias endividadas têm dívida de cartão de crédito
-                    <p class="src">CNC (Peic), jul/2026</p>
-                </div>
-                <div><b>12,3%</b>de desemprego entre 18 e 24 anos; média do país: 5,6%
-                    <p class="src">IBGE (PNAD Contínua), 3º tri 2025</p>
-                </div>
-            </div>
-            <p><button class="btn" id="prf">Atualizar</button> <a class="btn" href="#slides" style="display:inline-block;text-decoration:none;margin-left:.5rem">Sair</a> <span class="src" id="pst"></span></p>
-            <div id="pout"></div>
-            <h3 class="pq">Para o grupo discutir</h3>
-            <pre id="psum">Sem respostas ainda.</pre>
-        </div>
-    </section>
-    <script>
-        const $ = s => document.querySelector(s),
-            brl = new Intl.NumberFormat('pt-BR', {
-                style: 'currency',
-                currency: 'BRL'
-            });
-        const slides = [...document.querySelectorAll('.slide')];
-        let i = 0;
+      </div>
+    </div>
+  </div>
+</section>
 
-        function go(n) {
-            i = Math.max(0, Math.min(slides.length - 1, n));
-            slides.forEach((s, k) => s.classList.toggle('on', k === i));
-            $('#count').textContent = (i + 1) + ' / ' + slides.length;
-            $('#fill').style.width = ((i + 1) / slides.length * 100) + '%';
-            $('#main').scrollTop = 0
-        }
-        $('#prev').onclick = () => go(i - 1);
-        $('#next').onclick = () => go(i + 1);
-        $('#full').onclick = () => {
-            try {
-                document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen()
-            } catch (e) {}
-        };
-        addEventListener('keydown', e => {
-            if (e.target.closest && e.target.closest('input,[contenteditable]')) return;
-            if (e.key === 'ArrowRight' || e.key === 'PageDown') go(i + 1);
-            else if (e.key === 'ArrowLeft' || e.key === 'PageUp') go(i - 1);
-            else if (e.key === 'f' || e.key === 'F') $('#full').click()
-        });
+<section class="slide">
+  <h2>Regra 50/30/20</h2>
+  <p>Um jeito simples de dividir a renda. Mude os valores e veja o resultado.</p>
+  <div class="w">
+    <div class="f">
+      <label>Renda mensal (R$)<input id="renda" type="number" min="0" value="2000"></label>
+    </div>
+    <label>Necessidades: <b id="vn"></b><input id="pn" type="range" min="0" max="100" value="50"></label>
+    <label>Desejos: <b id="vd"></b><input id="pd" type="range" min="0" max="100" value="30"></label>
+    <div id="bud" class="w" style="margin:0"></div>
+    <p id="bnote" class="warn"></p>
+  </div>
+</section>
 
-        function budget() {
-            const r = +$('#renda').value || 0,
-                n = +$('#pn').value,
-                d = +$('#pd').value,
-                p = Math.max(0, 100 - n - d);
-            $('#vn').textContent = n + '%';
-            $('#vd').textContent = d + '%';
-            const rows = [
-                ['Necessidades', n, 'var(--blue)'],
-                ['Desejos', d, 'var(--amber)'],
-                ['Poupança e dívidas', p, 'var(--green)']
-            ];
-            $('#bud').innerHTML = rows.map(([t, x, c]) => `<div class="row"><span>${t} (${x}%)</span><div class="track"><i style="width:${x}%;background:${c}"></i></div><strong>${brl.format(r*x/100)}</strong></div>`).join('');
-            $('#bnote').textContent = n + d > 100 ? 'Necessidades e desejos passam de 100%: não sobra nada para guardar.' : ''
-        }
+<section class="slide">
+  <h2>Juros compostos</h2>
+  <p>Juros sobre juros: com o tempo, o rendimento passa a render também. A taxa abaixo é só um exemplo, não uma promessa.</p>
+  <div class="w">
+    <div class="f">
+      <label>Guardo por mês (R$)<input id="aporte" type="number" min="0" value="200"></label>
+      <label>Taxa ao mês (%)<input id="taxa" type="number" min="0" step="0.1" value="1"></label>
+    </div>
+    <label>Tempo: <b id="vanos"></b><input id="anos" type="range" min="1" max="30" value="10"></label>
+    <div class="res">
+      <div class="big"><span>Total guardado</span><b id="jt"></b></div>
+      <div class="big"><span>Você depositou</span><b id="jd"></b></div>
+      <div class="big"><span>Juros</span><b id="jj"></b></div>
+    </div>
+    <div id="chart" class="chart" role="img" aria-label="Evolução do dinheiro guardado ano a ano"></div>
+    <p class="leg"><u style="background:var(--blue)"></u>Depositado <u style="background:var(--amber);margin-left:1rem"></u>Juros</p>
+  </div>
+</section>
 
-        function reserva() {
-            const g = +$('#gasto').value || 0;
-            $('#r3').textContent = brl.format(g * 3);
-            $('#r6').textContent = brl.format(g * 6)
-        }
+<section class="slide">
+  <h2>Quando a dívida cresce</h2>
+  <p class="big sm">81,7% das famílias brasileiras têm dívidas</p>
+  <div class="coins" role="img" aria-label="Cerca de 8 em cada 10 famílias brasileiras têm dívidas"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i style="background:linear-gradient(90deg,var(--blue) 17%,transparent 17%)"></i><i></i></div>
+  <p class="src">Fonte: CNC (Peic): 81,7% em set/2026; cartão de crédito em mais de 85% das famílias endividadas (jul/2026).</p>
+  <p>Se você não paga, os juros passam a incidir sobre o que já está devendo. A taxa abaixo é só um exemplo.</p>
+  <div class="w">
+    <div class="f">
+      <label>Valor da dívida (R$)<input id="dv" type="number" min="0" value="1000"></label>
+      <label>Juros ao mês (%)<input id="dt" type="number" min="0" step="0.5" value="8"></label>
+    </div>
+    <div class="res">
+      <div class="big"><span>Em 3 meses</span><b id="d3"></b></div>
+      <div class="big"><span>Em 6 meses</span><b id="d6"></b></div>
+      <div class="big"><span>Em 12 meses</span><b id="d12"></b></div>
+    </div>
+    <div class="pt" style="--c:var(--coral)">Compare o valor total, não só a parcela.</div>
+  </div>
+</section>
 
-        function juros() {
-            const p = +$('#aporte').value || 0,
-                r = (+$('#taxa').value || 0) / 100,
-                y = +$('#anos').value;
-            $('#vanos').textContent = y + (y === 1 ? ' ano' : ' anos');
-            let b = 0;
-            const pts = [];
-            for (let m = 1; m <= y * 12; m++) {
-                b = b * (1 + r) + p;
-                if (m % 12 === 0) pts.push([p * m, b])
-            }
-            const dep = p * y * 12,
-                max = b || 1;
-            $('#jt').textContent = brl.format(b);
-            $('#jd').textContent = brl.format(dep);
-            $('#jj').textContent = brl.format(b - dep);
-            $('#chart').innerHTML = pts.map(([d, t], k) => `<div title="Ano ${k+1}: ${brl.format(t)}"><em style="height:${(t-d)/max*100}%"></em><b style="height:${d/max*100}%"></b></div>`).join('')
-        }
+<section class="slide">
+  <h2>Pesquisa rápida</h2>
+  <p>Responda sem se identificar. As respostas ajudam o grupo a entender por que os jovens se endividam.</p>
+  <div id="quiz" class="w"></div>
+</section>
 
-        function meta() {
-            const v = +$('#mv').value || 0,
-                m = Math.max(1, +$('#mm').value || 1);
-            $('#mp').textContent = brl.format(v / m)
-        }
+<section class="slide">
+  <h2>O que levar daqui</h2>
+  <div class="pt" style="--c:var(--blue)">Anote o que entra e o que sai por um mês.</div>
+  <div class="pt" style="--c:var(--amber)">Defina uma meta e um valor mensal para ela.</div>
+  <div class="pt" style="--c:var(--coral)">Antes de parcelar, pergunte quanto vai pagar no total.</div>
+  <p class="big" style="margin-top:2rem">Perguntas?</p>
+</section>
 
-        function divida() {
-            const v = +$('#dv').value || 0,
-                r = (+$('#dt').value || 0) / 100;
-            [3, 6, 12].forEach(n => $('#d' + n).textContent = brl.format(v * Math.pow(1 + r, n)))
-        }
-        ['mv', 'mm'].forEach(id => $('#' + id).oninput = meta);
-        ['dv', 'dt'].forEach(id => $('#' + id).oninput = divida);
+</main>
+<div class="ctrl">
+  <button class="btn" id="prev">Anterior</button>
+  <button class="btn" id="full">Tela cheia</button>
+  <button class="btn" id="next">Próximo</button>
+</div>
+<a id="oculto" href="#adm" tabindex="-1" aria-hidden="true"></a>
+<section id="painel">
+  <div id="login">
+    <h2>Área do grupo</h2>
+    <p class="src">Digite a senha para ver as respostas.</p>
+    <div class="f"><label>Senha<input id="pw" type="password" autocomplete="current-password"></label></div>
+    <p><button class="btn" id="entrar">Entrar</button> <a class="btn" href="#slides" style="display:inline-block;text-decoration:none;margin-left:.5rem">Voltar</a></p>
+    <p class="warn" id="lerr"></p>
+  </div>
+  <div id="dash" hidden>
+    <div class="ptop">
+      <div><h2>Pesquisa × realidade</h2><p class="src" style="margin:0">Por que os jovens se endividam? Respostas anônimas da turma.</p></div>
+      <div class="res"><div class="big"><span>respostas</span><b id="ptot">0</b></div></div>
+    </div>
+    <div class="real">
+      <div><b>81,7%</b>das famílias brasileiras têm dívidas<p class="src">CNC (Peic), set/2026</p></div>
+      <div><b>+85%</b>das famílias endividadas têm dívida de cartão de crédito<p class="src">CNC (Peic), jul/2026</p></div>
+      <div><b>12,3%</b>de desemprego entre 18 e 24 anos; média do país: 5,6%<p class="src">IBGE (PNAD Contínua), 3º tri 2025</p></div>
+    </div>
+    <p><button class="btn" id="prf">Atualizar</button> <a class="btn" href="#slides" style="display:inline-block;text-decoration:none;margin-left:.5rem">Sair</a> <span class="src" id="pst"></span></p>
+    <div id="pout"></div>
+    <h3 class="pq">Para o grupo discutir</h3>
+    <pre id="psum">Sem respostas ainda.</pre>
+  </div>
+</section>
+<script>
+const $=s=>document.querySelector(s),brl=new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'});
+const slides=[...document.querySelectorAll('.slide')];let i=0;
+function go(n){i=Math.max(0,Math.min(slides.length-1,n));slides.forEach((s,k)=>s.classList.toggle('on',k===i));$('#count').textContent=(i+1)+' / '+slides.length;$('#fill').style.width=((i+1)/slides.length*100)+'%';$('#main').scrollTop=0}
+$('#prev').onclick=()=>go(i-1);$('#next').onclick=()=>go(i+1);
+$('#full').onclick=()=>{try{document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen()}catch(e){}};
+addEventListener('keydown',e=>{if(e.target.closest&&e.target.closest('input,[contenteditable]'))return;
+if(e.key==='ArrowRight'||e.key==='PageDown')go(i+1);else if(e.key==='ArrowLeft'||e.key==='PageUp')go(i-1);else if(e.key==='f'||e.key==='F')$('#full').click()});
 
-        function bars(sel, rows, max) {
-            $(sel).innerHTML = rows.map(([t, v, c]) => `<div class="row"><span>${t}</span><div class="track"><i style="width:${v/max*100}%;background:${c}"></i></div><strong>${v.toLocaleString('pt-BR',{minimumFractionDigits:1})}%</strong></div>`).join('')
-        }
-        const G = 'var(--blue)',
-            M = 'var(--muted)',
-            C = 'var(--coral)';
-        bars('#gpib', [
-            ['2021', 4.8, G],
-            ['2022', 2.9, G],
-            ['2023', 3.2, G],
-            ['2024', 3.4, G],
-            ['2025', 2.3, G]
-        ], 5);
-        bars('#gdes', [
-            ['14–17 anos', 21.2, G],
-            ['18–24 anos', 12.3, G],
-            ['25–39 anos', 5.2, M],
-            ['40–59 anos', 3.6, M],
-            ['60+ anos', 2.7, M],
-            ['Brasil', 5.6, C]
-        ], 22);
-        const ENDPOINT = '';
-        const Q = [{
-            q: 'Quando você quer muito algo que não cabe no bolso agora, o que costuma fazer?',
-            o: ['Parcelo no cartão ou no crediário', 'Peço dinheiro emprestado', 'Junto o dinheiro e espero', 'Deixo para lá'],
-            e: 'Parcelar sem planejar é um dos caminhos mais comuns para a dívida: cada parcela cabe, mas a soma delas não.'
-        }, {
-            q: 'O que mais leva um jovem a gastar além do que pode?',
-            o: ['Ver amigos comprando', 'Redes sociais e influenciadores', 'Promoções e frete grátis', 'Comprar para se sentir bem'],
-            e: 'Muita compra nasce da vontade de acompanhar os outros ou de um impulso, não de uma necessidade.'
-        }, {
-            q: 'Você acompanha para onde vai o seu dinheiro?',
-            o: ['Anoto tudo', 'Só olho o saldo', 'Quase nunca', 'Nunca pensei nisso'],
-            e: 'Quem não sabe para onde o dinheiro vai só descobre o problema quando a fatura chega.'
-        }, {
-            q: 'Qual destas situações você já viu acontecer perto de você?',
-            o: ['Usar o limite do cartão até o fim', 'Parcelar tantas compras que não dá para pagar', 'Apostar online esperando ganhar dinheiro', 'Emprestar o cartão ou o nome para alguém'],
-            e: 'Todas são portas de entrada para dívidas que crescem rápido com os juros.'
-        }];
-        let qi = 0,
-            ans = [];
+function budget(){const r=+$('#renda').value||0,n=+$('#pn').value,d=+$('#pd').value,p=Math.max(0,100-n-d);
+$('#vn').textContent=n+'%';$('#vd').textContent=d+'%';
+const rows=[['Necessidades',n,'var(--blue)'],['Desejos',d,'var(--amber)'],['Poupança e dívidas',p,'var(--green)']];
+$('#bud').innerHTML=rows.map(([t,x,c])=>`<div class="row"><span>${t} (${x}%)</span><div class="track"><i style="width:${x}%;background:${c}"></i></div><strong>${brl.format(r*x/100)}</strong></div>`).join('');
+$('#bnote').textContent=n+d>100?'Necessidades e desejos passam de 100%: não sobra nada para guardar.':''}
+function reserva(){const g=+$('#gasto').value||0;$('#r3').textContent=brl.format(g*3);$('#r6').textContent=brl.format(g*6)}
+function juros(){const p=+$('#aporte').value||0,r=(+$('#taxa').value||0)/100,y=+$('#anos').value;
+$('#vanos').textContent=y+(y===1?' ano':' anos');
+let b=0;const pts=[];for(let m=1;m<=y*12;m++){b=b*(1+r)+p;if(m%12===0)pts.push([p*m,b])}
+const dep=p*y*12,max=b||1;
+$('#jt').textContent=brl.format(b);$('#jd').textContent=brl.format(dep);$('#jj').textContent=brl.format(b-dep);
+$('#chart').innerHTML=pts.map(([d,t],k)=>`<div title="Ano ${k+1}: ${brl.format(t)}"><em style="height:${(t-d)/max*100}%"></em><b style="height:${d/max*100}%"></b></div>`).join('')}
 
-        function enviar() {
-            let t = 'Suas respostas são anônimas.';
-            if (ENDPOINT) {
-                fetch(ENDPOINT, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    body: JSON.stringify({
-                        a: ans
-                    })
-                }).catch(() => {});
-                t += ' Elas foram enviadas ao grupo.'
-            } else t += ' O envio ao grupo ainda não foi configurado.';
-            return t
-        }
-
-        function quiz() {
-            const box = $('#quiz');
-            if (qi >= Q.length) {
-                box.innerHTML = '<p class="big">Obrigado por responder!</p><p>' + enviar() + '</p>';
-                return
-            }
-            const q = Q[qi];
-            box.innerHTML = `<p class="leg">Pergunta ${qi+1} de ${Q.length}</p><p class="q">${q.q}</p><div class="opts">${q.o.map((t,k)=>`<button class="opt" data-k="${k}">${t}</button>`).join('')}</div><p id="fb" class="fb" aria-live="polite"></p>`;
+function meta(){const v=+$('#mv').value||0,m=Math.max(1,+$('#mm').value||1);$('#mp').textContent=brl.format(v/m)}
+function divida(){const v=+$('#dv').value||0,r=(+$('#dt').value||0)/100;[3,6,12].forEach(n=>$('#d'+n).textContent=brl.format(v*Math.pow(1+r,n)))}
+['mv','mm'].forEach(id=>$('#'+id).oninput=meta);['dv','dt'].forEach(id=>$('#'+id).oninput=divida);
+function bars(sel,rows,max){$(sel).innerHTML=rows.map(([t,v,c])=>`<div class="row"><span>${t}</span><div class="track"><i style="width:${v/max*100}%;background:${c}"></i></div><strong>${v.toLocaleString('pt-BR',{minimumFractionDigits:1})}%</strong></div>`).join('')}
+const G='var(--blue)',M='var(--muted)',C='var(--coral)';
+bars('#gpib',[['2021',4.8,G],['2022',2.9,G],['2023',3.2,G],['2024',3.4,G],['2025',2.3,G]],5);
+bars('#gdes',[['14–17 anos',21.2,G],['18–24 anos',12.3,G],['25–39 anos',5.2,M],['40–59 anos',3.6,M],['60+ anos',2.7,M],['Brasil',5.6,C]],22);
+const ENDPOINT='https://script.google.com/macros/s/AKfycbwkjX0BjQ4iZhDhYwZ8JGHtJ1KNhZnvAP4yW8PFBgsGLXu0ONUAP53nPG6rHjqKbw/exec';
+const Q=[
+{q:'Quando você quer muito algo que não cabe no bolso agora, o que costuma fazer?',o:['Parcelo no cartão ou no crediário','Peço dinheiro emprestado','Junto o dinheiro e espero','Deixo para lá'],e:'Parcelar sem planejar é um dos caminhos mais comuns para a dívida: cada parcela cabe, mas a soma delas não.'},
+{q:'O que mais leva um jovem a gastar além do que pode?',o:['Ver amigos comprando','Redes sociais e influenciadores','Promoções e frete grátis','Comprar para se sentir bem'],e:'Muita compra nasce da vontade de acompanhar os outros ou de um impulso, não de uma necessidade.'},
+{q:'Você acompanha para onde vai o seu dinheiro?',o:['Anoto tudo','Só olho o saldo','Quase nunca','Nunca pensei nisso'],e:'Quem não sabe para onde o dinheiro vai só descobre o problema quando a fatura chega.'},
+{q:'Qual destas situações você já viu acontecer perto de você?',o:['Usar o limite do cartão até o fim','Parcelar tantas compras que não dá para pagar','Apostar online esperando ganhar dinheiro','Emprestar o cartão ou o nome para alguém'],e:'Todas são portas de entrada para dívidas que crescem rápido com os juros.'}];
+let qi=0,ans=[];
+function enviar(){let t='Suas respostas são anônimas.';
+if(ENDPOINT){fetch(ENDPOINT,{method:'POST',mode:'no-cors',body:JSON.stringify({a:ans})}).catch(()=>{});t+=' Elas foram enviadas ao grupo.'}
+else t+=' O envio ao grupo ainda não foi configurado.';
+return t}
+function quiz(){const box=$('#quiz');
+if(qi>=Q.length){box.innerHTML='<p class="big">Obrigado por responder!</p><p>'+enviar()+'</p>';return}
+const q=Q[qi];
+box.innerHTML=`<p class="leg">Pergunta ${qi+1} de ${Q.length}</p><p class="q">${q.q}</p><div class="opts">${q.o.map((t,k)=>`<button class="opt" data-k="${k}">${t}</button>`).join('')}</div><p id="fb" class="fb" aria-live="polite"></p>`;
 box.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{ans.push(+b.dataset.k);
 box.querySelectorAll('.opt').forEach(x=>{x.disabled=true;if(x===b)x.classList.add('ok')});
 $('#fb').innerHTML=q.e+' <button class="btn" id="nq">'+(qi+1<Q.length?'Próxima pergunta':'Enviar respostas')+'</button>';
@@ -934,12 +333,52 @@ const h=parseInt(location.hash.slice(1));go(h>0?h-1:0);
 $('#entrar').onclick=()=>{const v=$('#pw').value;if(!v)return;SEN=v;try{sessionStorage.setItem('k',v)}catch(e){}$('#lerr').textContent='';carregar()};
 $('#pw').addEventListener('keydown',e=>{if(e.key==='Enter')$('#entrar').click()});
 $('#prf').onclick=carregar;addEventListener('hashchange',rota);setInterval(()=>{if(document.body.classList.contains('pv')&&SEN)carregar()},15000);rota();
-    </script>
-    <!--
+</script>
+<!--
 CÓDIGO DO APPS SCRIPT (não roda aqui: ele vive no Google).
 Copie tudo entre as linhas abaixo e cole em Extensões > Apps Script, dentro de uma planilha do Google.
 Troque a senha SÓ lá no Google. Nunca escreva a senha real neste arquivo, porque ele fica público no GitHub.
+=== início ===
+// Cole este código em Extensões > Apps Script, dentro de uma planilha do Google.
+const ABA = 'respostas';
+const SENHA = 'troque-por-uma-senha-longa'; // a senha dos três: troque antes de implantar
+
+function aba_() {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  return ss.getSheetByName(ABA) || ss.insertSheet(ABA);
+}
+
+function json_(o) {
+  return ContentService.createTextOutput(JSON.stringify(o)).setMimeType(ContentService.MimeType.JSON);
+}
+
+// Recebe uma resposta: {"a":[0,2,1,3]}
+function doPost(e) {
+  let a;
+  try { a = JSON.parse(e.postData.contents).a; } catch (x) { return ContentService.createTextOutput('erro'); }
+  if (!Array.isArray(a) || a.length !== 4 || a.some(n => !Number.isInteger(n) || n < 0 || n > 3)) {
+    return ContentService.createTextOutput('erro');
+  }
+  aba_().appendRow([new Date(), ...a]);
+  return ContentService.createTextOutput('ok');
+}
+
+// Devolve a contagem de cada opção, mas só com a senha certa
+function doGet(e) {
+  if (SENHA === 'troque-por-uma-senha-longa') return json_({ erro: 'configure' });
+  const k = e && e.parameter ? e.parameter.k : '';
+  if (k !== SENHA) return json_({ erro: 'senha' });
+  const rows = aba_().getDataRange().getValues();
+  const c = [0, 1, 2, 3].map(() => [0, 0, 0, 0]);
+  rows.forEach(r => {
+    for (let q = 0; q < 4; q++) {
+      const v = r[q + 1];
+      if (Number.isInteger(v) && v >= 0 && v <= 3) c[q][v]++;
+    }
+  });
+  return json_({ total: rows.length, c });
+}
+=== fim ===
 -->
 </body>
-
 </html>
